@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 
-class QueryFrame(QWidget):
+class StudentQueryFrame(QWidget):
     def __init__(self, id):
-        super(QueryFrame, self).__init__()
+        super(StudentQueryFrame, self).__init__()
         self.id = id
         self.__back_btn = None
         self.__query_btn = None
@@ -148,7 +148,7 @@ class QueryFrame(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    w = QueryFrame(1)
+    w = StudentQueryFrame(1)
     w.show()
     sys.exit(app.exec_())
 
