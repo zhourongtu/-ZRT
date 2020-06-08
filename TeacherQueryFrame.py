@@ -137,11 +137,30 @@ class TeacherQueryFrame(QWidget):
     def __set_form_student(self, data):
         self.__form_course_model = QStandardItemModel(100, 5) # 模型
         self.__form_course_model.setHorizontalHeaderLabels(["学生学号", "学生名字", "课程ID", "课程名", "成绩"]) # 名称
+        sum = 0.0
+        count = 0
+        count_smaller_60 = 0
+        count_bigger_60 = 0
+        count_None = 0
         for row in range(len(data)):
             for column in range(5):
+                if(column == 4 and data[row][column] != None):
+                    temp_grade = float(data[row][column])
+                    sum += temp_grade
+                    count += 1
+                    if(temp_grade < 60):
+                        count_smaller_60 += 1
                 item = QStandardItem("%s"%(str(data[row][column])))
                 self.__form_course_model.setItem(row, column, item)
-
+        
+        count_None = len(data) - count
+        avg_grade = sum / count
+        item = QStandardItem("平均成绩：%s"%(str(avg_grade)))
+        self.__form_course_model.setItem(len(data), 4, item)
+        item = QStandardItem("未登记人数：%s"%(str(count_None)))
+        self.__form_course_model.setItem(len(data)+1, 4, item)
+        item = QStandardItem("未及格人数：%s"%(str(count_smaller_60)))
+        self.__form_course_model.setItem(len(data)+2, 4, item)
         self.__form_view.setModel(self.__form_course_model)
         
     # 得到查询信息（需要复用）
