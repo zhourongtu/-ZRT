@@ -93,7 +93,7 @@ class StudentQueryFrame(QWidget):
         self.layout.addLayout(self.HLayout1)
         self.layout.addLayout(self.HLayout2)
         self.layout.addLayout(self.HLayout3)
-        self.layout.addStretch(1)
+        # self.layout.addStretch(1)
         self.setLayout(self.layout)
 
     # 设置表格头

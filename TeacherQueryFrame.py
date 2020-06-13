@@ -27,7 +27,7 @@ class TeacherQueryFrame(QWidget):
 
     def init_ui_Query_Frame(self):
         self.resize(700, 400)
-        self.setWindowTitle("学生查询界面")
+        self.setWindowTitle("教师查询界面")
 
         self.layout = QVBoxLayout()
 
@@ -154,8 +154,9 @@ class TeacherQueryFrame(QWidget):
                 self.__form_course_model.setItem(row, column, item)
         
         count_None = len(data) - count
-        avg_grade = sum / count
-        item = QStandardItem("平均成绩：%s"%(str(avg_grade)))
+        if(count != 0):
+            avg_grade = sum / count
+        item = QStandardItem("平均成绩：%s"%(format(avg_grade, '.2f')))
         self.__form_course_model.setItem(len(data), 4, item)
         item = QStandardItem("未登记人数：%s"%(str(count_None)))
         self.__form_course_model.setItem(len(data)+1, 4, item)
@@ -207,10 +208,10 @@ class TeacherQueryFrame(QWidget):
             return
         # 加上分数区间：低分
         if(len(self.__grade_low) != 0):
-            sql + sql + "and coursechoosing.grade >= \'{}\'".format(self.__grade_low)
+            sql = sql + "and coursechoosing.grade >= \'{}\'".format(self.__grade_low)
         # 加上分数去加：高分
         if(len(self.__grade_high) != 0):
-            sql + sql + "and coursechoosing.grade <= \'{}\'".format(self.__grade_high)
+            sql = sql + "and coursechoosing.grade <= \'{}\'".format(self.__grade_high)
         
         print(sql)
         try:
